@@ -1,0 +1,40 @@
+/* Lógico_1: */
+
+CREATE TABLE Cliente (
+    idCliente Integer PRIMARY KEY,
+    nomeCliente varchar(100),
+    emailCliente varchar(200)
+);
+
+CREATE TABLE Pedido (
+    idPedido Integer PRIMARY KEY,
+    dt_pedido Date,
+    Total_Geral float,
+    fk_Cliente_idCliente Integer
+);
+
+CREATE TABLE Produto (
+    nomeProduto varchar(100),
+    Preco_Unit float,
+    idProduto Integer PRIMARY KEY
+);
+
+CREATE TABLE Item (
+    fk_Produto_idProduto Integer,
+    fk_Pedido_idPedido Integer
+);
+ 
+ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_2
+    FOREIGN KEY (fk_Cliente_idCliente)
+    REFERENCES Cliente (idCliente)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Item ADD CONSTRAINT FK_Item_1
+    FOREIGN KEY (fk_Produto_idProduto)
+    REFERENCES Produto (idProduto)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Item ADD CONSTRAINT FK_Item_2
+    FOREIGN KEY (fk_Pedido_idPedido)
+    REFERENCES Pedido (idPedido)
+    ON DELETE SET NULL;
